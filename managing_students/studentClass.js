@@ -50,34 +50,38 @@ class StudentService {
         });
     }
 
-    findStudents({ filters = {}, sortBy = 'name', sortOrder = 'asc', page = 1, limit = 10 } = {}) {
-        let result = [...this.#students];
+   findStudents({ filters = {}, sortBy = 'name', sortOrder = 'asc', page = 1, limit = 1} = {}) {
+    let result = [...this.#students];
 
-        if (Object.keys(filters).length > 0) {
-            result = result.filter(student => {
-                return Object.entries(filters).every(([key, value]) => {
-                    if (typeof value === 'string' && typeof student[key] === 'string') {
-                        return student[key].toLowerCase().includes(value.toLowerCase());
-                    }
-                    return student[key] === value;
-                });
+    if (Object.keys(filters).length > 0) {
+        result = result.filter(student => {
+            return Object.entries(filters).every(([key, value]) => {
+                if (typeof value === 'string' && typeof student[key] === 'string') {
+                    return student[key].toLowerCase().includes(value.toLowerCase());
+                }
+                return student[key] === value;
             });
-        }
-
-        // Sorting
-        result.sort((a, b) => {
-            if (a[sortBy] < b[sortBy]) return sortOrder === 'asc' ? -1 : 1;
-            if (a[sortBy] > b[sortBy]) return sortOrder === 'asc' ? 1 : -1;
-            return 0;
         });
-
-        // Pagination
-        const start = (page - 1) * limit;
-        const end = start + limit;
-        const paginated = result.slice(start, end);
-
-        return { data: paginated, total: result.length };
     }
+
+    if (result.length === 0) {
+        throw new Error("No students found matching the given criteria.");
+        
+    }
+    result.sort((a, b) => {
+        if (a[sortBy] < b[sortBy]) return sortOrder === 'asc' ? -1 : 1;
+        if (a[sortBy] > b[sortBy]) return sortOrder === 'asc' ? 1 : -1;
+        return 0;
+    });
+
+    
+    const start = (page - 1) * limit;
+    const end = start + limit;
+    const paginated = result.slice(start, end);
+
+    return { data: paginated, total: result.length };
+}
+
 }
 
 // -------------------------
