@@ -50,7 +50,7 @@ class StudentService {
         });
     }
 
-   findStudents({ filters = {}, sortBy = 'name', sortOrder = 'asc', page = 1, limit = 1} = {}) {
+   findStudents({ filters = {}, sortBy = 'name', sortOrder = 'asc', page = 1, limit = 10} = {}) {
     let result = [...this.#students];
 
     if (Object.keys(filters).length > 0) {
