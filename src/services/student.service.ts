@@ -24,13 +24,18 @@ export const allStudent = (): StudentInterface => {
 
     return students;
 }
-export const getStudentById = (studentId: string) => {
-    const foundIndex = db.findIndex((va) => va.id === studentId);
-    if (foundIndex === -1) {
-        return 0
+export const getStudentById = ({ studentId }:
+    { studentId: string }
+): StudentInterface | boolean => {
+    const studentTable = JSON.parse(database())
+    const students = studentTable["students"] as StudentInterface[];
+    const studentIndex = students.findIndex((va) => va.id == studentId);
+    if (studentIndex === -1) {
+        return false;
     }
-    return db[foundIndex]
-}
+    return students[studentIndex];
+};
+
 export const deletedStudentById = (studentId: string) => {
     const studentIndex = db.findIndex(ide => ide.id === studentId)
     if (studentIndex === -1) {
