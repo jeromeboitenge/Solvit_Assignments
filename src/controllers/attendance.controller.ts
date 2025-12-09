@@ -22,10 +22,8 @@ export const getStudentAttendance = (req: Request, res: Response) => {
     const attendance = getAttendanceForStudent(studentId);
     res.status(200).json({ message: "Attendance fetched", data: attendance });
 };
-
-// Get all attendance, with optional filter
 export const getAllAttendance = (req: Request, res: Response) => {
-    const { status } = req.query; // ?status=present or ?status=absent
+    const { status } = req.query;
     let attendance = allAttendance();
 
     if (status === "present" || status === "absent") {
@@ -35,7 +33,6 @@ export const getAllAttendance = (req: Request, res: Response) => {
     res.status(200).json({ message: "Attendance fetched", data: attendance });
 };
 
-// Update attendance
 export const editAttendance = (req: Request, res: Response) => {
     const { id } = req.params;
     const { status } = req.body;
@@ -47,7 +44,6 @@ export const editAttendance = (req: Request, res: Response) => {
     res.status(200).json({ message: "Attendance updated", data: updated });
 };
 
-// Delete attendance
 export const removeAttendance = (req: Request, res: Response) => {
     const { id } = req.params;
     const deleted = deleteAttendance(id);
