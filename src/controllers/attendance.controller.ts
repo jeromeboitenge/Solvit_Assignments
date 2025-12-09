@@ -6,8 +6,6 @@ import {
     updateAttendance,
     deleteAttendance
 } from "../services/attendance.service";
-
-// Create attendance
 export const setAttendance = (req: Request, res: Response) => {
     const { studentId, status } = req.body;
     if (!studentId || !status) return res.status(400).json({ message: "Missing studentId or status" });
@@ -18,7 +16,7 @@ export const setAttendance = (req: Request, res: Response) => {
     res.status(201).json({ message: "Attendance recorded", data: attendance });
 };
 
-// Get attendance for a student
+
 export const getStudentAttendance = (req: Request, res: Response) => {
     const { studentId } = req.params;
     const attendance = getAttendanceForStudent(studentId);

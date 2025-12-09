@@ -6,7 +6,7 @@ import { Attendance } from "../types/attendenceInterface";
 export const markAttendance = ({ studentId, status }: { studentId: string; status: "present" | "absent" }) => {
     const db = JSON.parse(database());
 
-    const student = db.students.find((s: any) => s.id === studentId);
+    const student = db.students.find((s: { id: string; }) => s.id === studentId);
     if (!student) return false;
 
     const index = (db.attendance.length + 1).toString();
@@ -14,7 +14,7 @@ export const markAttendance = ({ studentId, status }: { studentId: string; statu
         id: index,
         studentId,
         status,
-        date: new Date().toISOString().split("T")[0],
+        date: new Date()
     };
 
     db.attendance.push(newRecord);
@@ -33,7 +33,6 @@ export const allAttendance = () => {
     return db.attendance;
 };
 
-// ✅ Update attendance by ID
 export const updateAttendance = (id: string, status: "present" | "absent") => {
     const db = JSON.parse(database());
     const record = db.attendance.find((r: Attendance) => r.id === id);
@@ -43,8 +42,6 @@ export const updateAttendance = (id: string, status: "present" | "absent") => {
     writeFile(db);
     return record;
 };
-
-// ✅ Delete attendance by ID
 export const deleteAttendance = (id: string) => {
     const db = JSON.parse(database());
     const index = db.attendance.findIndex((r: Attendance) => r.id === id);
