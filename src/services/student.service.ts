@@ -24,9 +24,7 @@ export const allStudent = (): StudentInterface => {
 
     return students;
 }
-export const getStudentById = ({ studentId }:
-    { studentId: string }
-): StudentInterface | boolean => {
+export const findStudent = ({ studentId }: { studentId: string; }): StudentInterface | boolean => {
     const studentTable = JSON.parse(database())
     const students = studentTable["students"] as StudentInterface[];
     const studentIndex = students.findIndex((va) => va.id == studentId);

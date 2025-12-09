@@ -2,7 +2,7 @@ import { db } from "../../database";
 import { Request, Response } from "express";
 import { studentRouter } from "../routes/student";
 import { CreateStudentsRequest, GetStudentIdParamsReq } from "../types/student.interface";
-import { createUser, allStudent, getStudentById, deletedStudentById } from "../services/student.service";
+import { createUser, allStudent, findStudent, deletedStudentById } from "../services/student.service";
 
 export const createStudent = (req: CreateStudentsRequest, res: Response) => {
     try {
@@ -38,7 +38,7 @@ export const getStudent = (req: GetStudentIdParamsReq, res: Response) => {
 
 
 
-    const student = getStudentById(studentId);
+    const student = findStudent({ studentId });
     res.status(200).json({
         message: "student Found",
         data: student,
