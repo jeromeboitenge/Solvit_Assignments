@@ -18,9 +18,11 @@ export const createUser = ({ name, age, isActive }: { name: string, age: number,
     return studentTable.students[Number(index)]
 
 }
-export const allStudent = () => {
+export const allStudent = (): StudentInterface => {
+    const studentTable = JSON.parse(database())
+    const students = studentTable["students"] as StudentInterface
 
-    return db;
+    return students;
 }
 export const getStudentById = (studentId: string) => {
     const foundIndex = db.findIndex((va) => va.id === studentId);
