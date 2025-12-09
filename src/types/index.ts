@@ -1,0 +1,1 @@
+import * as StudentInterface from "./student.interface"
