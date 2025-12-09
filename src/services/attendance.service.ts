@@ -1,11 +1,7 @@
 import { database, writeFile } from "../database";
+import { Attendance } from "../types/attendenceInterface";
 
-interface Attendance {
-    id: string;
-    studentId: string;
-    status: "present" | "absent";
-    date: string;
-}
+
 
 export const markAttendance = ({ studentId, status }: { studentId: string; status: "present" | "absent" }) => {
     const db = JSON.parse(database());
