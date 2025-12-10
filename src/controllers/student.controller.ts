@@ -9,13 +9,15 @@ const responsee = new ResponseService()
 
 export const createStudent = (req: CreateStudentsRequest, res: Response) => {
     try {
-        const { name, age, isActive } = req.body;
+        // const { name, age, isActive } = req.body;
         const { value, error } = createVaridationSchema.validate(req.body)
-        if (!name || !age || isActive === undefined) {
+        if (error) {
             return res.status(400).json({
-                message: "Your missing field",
+                success: false,
+                message: error.details[0].message
             });
         }
+        const { name, age, isActive } = value;
         const student = createUser({ name, age, isActive })
         responsee.response({
             res,
@@ -81,69 +83,3 @@ export const updateStudent = (req: Request, res: Response) => {
 }
 
 
-/* 
-
-import { Request, Response } from "express";
-import { CreateStudentsRequest, GetStudentIdParamsReq, StudentInterface } from "../types";
-import { createUser, getAllUser, findUser } from "../services";
-import { ResponseService } from "../utils";
-const response = new ResponseService();
-export const createStudent = (req: CreateStudentsRequest, res: Response) => {
-  try {
-    const { name, age, isActive } = req.body;
-    if (!name || !age || !isActive) {
-      return res.status(400).json({
-        message: "Your missing field",
-      });
-    }
-    const student = createUser({
-      name,
-      age,
-      isActive,
-    });
-    response.response({
-      res,
-      data: student,
-      success: true,
-      statusCode: 201,
-      message: "Student Created Successfully",
-    });
-  } catch (error) {
-    const { message, stack } = error as Error;
-    response.response({
-      res,
-      statusCode: 500,
-      message,
-      error: stack,
-    });
-    res.status(500).json({
-      message,
-      stack,
-    });
-  }
-};
-
-export const getAllStudents = (req: Request, res: Response) => {
-  response.response<StudentInterface[]>({
-    res,
-    data: getAllUser(),
-    message: "fetched well",
-  });
-};
-export const getStudent = (req: GetStudentIdParamsReq, res: Response) => {
-  const { studentId } = req.params;
-
-  const studentDetails = findUser({ userId: studentId });
-  if (!studentDetails) {
-    res.status(404).json({
-      message: "Student Not Found",
-    });
-  }
-
-  res.status(200).json({
-    message: "student Fetched well",
-    data: studentDetails,
-  });
-};
-
-*/
