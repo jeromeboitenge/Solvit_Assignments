@@ -3,6 +3,8 @@ import { Request, Response } from "express";
 import { studentRouter } from "../routes/student";
 import { CreateStudentsRequest, GetStudentIdParamsReq } from "../types/student.interface";
 import { createUser, allStudent, findStudent, deletedStudentById } from "../services/student.service";
+import { ResponseService } from "../utils";
+const responsee = new ResponseService()
 
 export const createStudent = (req: CreateStudentsRequest, res: Response) => {
     try {
@@ -12,18 +14,29 @@ export const createStudent = (req: CreateStudentsRequest, res: Response) => {
                 message: "Your missing field",
             });
         }
-        createUser({ name, age, isActive })
-        res.status(201).json({
-            Message: "student have been created successfuly",
+        const student = createUser({ name, age, isActive })
+        responsee.response({
+            res,
+            data: student,
+            success: true,
+            statusCode: 201,
+            message: "Student Created Successfully",
         });
     } catch (error) {
         const { message, stack } = error as Error;
+        responsee.response({
+            res,
+            statusCode: 500,
+            message,
+            error: stack,
+        });
         res.status(500).json({
             message,
             stack,
         });
     }
 };
+
 
 export const getAllStudents = (req: Request, res: Response) => {
     const allStudents = allStudent()
@@ -64,3 +77,71 @@ export const updateStudent = (req: Request, res: Response) => {
     }
 
 }
+
+
+/* 
+
+import { Request, Response } from "express";
+import { CreateStudentsRequest, GetStudentIdParamsReq, StudentInterface } from "../types";
+import { createUser, getAllUser, findUser } from "../services";
+import { ResponseService } from "../utils";
+const response = new ResponseService();
+export const createStudent = (req: CreateStudentsRequest, res: Response) => {
+  try {
+    const { name, age, isActive } = req.body;
+    if (!name || !age || !isActive) {
+      return res.status(400).json({
+        message: "Your missing field",
+      });
+    }
+    const student = createUser({
+      name,
+      age,
+      isActive,
+    });
+    response.response({
+      res,
+      data: student,
+      success: true,
+      statusCode: 201,
+      message: "Student Created Successfully",
+    });
+  } catch (error) {
+    const { message, stack } = error as Error;
+    response.response({
+      res,
+      statusCode: 500,
+      message,
+      error: stack,
+    });
+    res.status(500).json({
+      message,
+      stack,
+    });
+  }
+};
+
+export const getAllStudents = (req: Request, res: Response) => {
+  response.response<StudentInterface[]>({
+    res,
+    data: getAllUser(),
+    message: "fetched well",
+  });
+};
+export const getStudent = (req: GetStudentIdParamsReq, res: Response) => {
+  const { studentId } = req.params;
+
+  const studentDetails = findUser({ userId: studentId });
+  if (!studentDetails) {
+    res.status(404).json({
+      message: "Student Not Found",
+    });
+  }
+
+  res.status(200).json({
+    message: "student Fetched well",
+    data: studentDetails,
+  });
+};
+
+*/
