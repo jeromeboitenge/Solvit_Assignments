@@ -37,8 +37,9 @@ export const findStudent = ({ studentId }: { studentId: string; }): StudentInter
 export const deletedStudentById = (studentId: string) => {
     const studentIndex = db.findIndex(ide => ide.id === studentId)
     if (studentIndex === -1) {
-        return false
+        return null
 
     }
-    return db.splice(studentIndex, 1);
+    const deleted = db.splice(studentIndex, 1);
+    return deleted[0]
 }
