@@ -2,7 +2,7 @@ import { db } from "../../database";
 import { Request, Response } from "express";
 import { studentRouter } from "../routes/student";
 import { CreateStudentsRequest, GetStudentIdParamsReq } from "../types/student.interface";
-import { createUser, allStudent, findStudent, deletedStudentById } from "../services/student.service";
+import { createUser, findAllStudent, findStudent, deletedStudentById } from "../services/student.service";
 import { ResponseService } from "../utils";
 const responsee = new ResponseService()
 
@@ -34,7 +34,8 @@ export const createStudent = (req: CreateStudentsRequest, res: Response) => {
 
 
 export const getAllStudents = (req: Request, res: Response) => {
-    const allStudents = allStudent()
+    const allStudents = findAllStudent()
+
 
     res.status(200).json({
         data: allStudents,
@@ -47,6 +48,9 @@ export const getStudent = (req: GetStudentIdParamsReq, res: Response) => {
 
 
     const student = findStudent({ studentId });
+    if (!student) {
+        return res.status(404).json({ message: "User not found" })
+    }
     res.status(200).json({
         message: "student Found",
         data: student,

@@ -20,7 +20,7 @@ export const createUser = ({ name, age, isActive }: { name: string, age: number,
     return db.students[Number(index)]
 
 }
-export const allStudent = (): StudentInterface => {
+export const findAllStudent = (): StudentInterface => {
 
     const students = db["students"] as StudentInterface
 
