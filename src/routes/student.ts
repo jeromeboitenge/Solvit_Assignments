@@ -1,7 +1,7 @@
 import { db } from "../../database"
 
 import express, { Router } from "express";
-import { createStudent, deleteStudent, getAllStudents, getStudent } from "../controllers/studentController";
+import { createStudent, deleteStudent, getAllStudents, getStudent } from "../controllers/student.controller";
 
 const studentRouter: Router = express().router
 
