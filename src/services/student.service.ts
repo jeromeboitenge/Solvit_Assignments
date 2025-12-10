@@ -35,11 +35,13 @@ export const findStudent = ({ studentId }: { studentId: string; }): StudentInter
 };
 
 export const deletedStudentById = (studentId: string) => {
+    const studentTable = JSON.parse(database())
     const studentIndex = db.findIndex(ide => ide.id === studentId)
     if (studentIndex === -1) {
         return null
 
     }
-    const deleted = db.splice(studentIndex, 1);
+    const deleted = studentTable.splice(studentIndex, 1);
+    writeFile(db)
     return deleted[0]
 }

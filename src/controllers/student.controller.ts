@@ -58,7 +58,7 @@ export const deleteStudent = (req: Request, res: Response) => {
     const deletedStudent = deletedStudentById(studentId)
     res.status(200).json({
         message: "student successfuly deleted",
-        deleted: deletedStudent
+        data: deletedStudent
     })
 }
 export const updateStudent = (req: Request, res: Response) => {
