@@ -19,6 +19,7 @@ export interface GetStudentIdParamsReq extends Request {
     }
 }
 export interface studentValidationInterface {
+    [x: string]: any;
     name: string,
     age: number,
     isActive: boolean
