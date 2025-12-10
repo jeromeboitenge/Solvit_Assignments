@@ -4,7 +4,7 @@ export interface userInterface {
     "phoneNumber": string
     "gender": Gender
 }
-enum Gender {
+export enum Gender {
     Male = "Male",
     Female = "Female"
 }
