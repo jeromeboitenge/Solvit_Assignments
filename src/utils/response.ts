@@ -1,4 +1,5 @@
 import { Response } from "express";
+
 interface ResponseInterface<T> {
     res: Response;
     data?: T;
