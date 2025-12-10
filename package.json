@@ -25,7 +25,9 @@
     "dotenv": "^17.2.3",
     "express": "^5.2.1",
     "helmet": "^8.1.0",
-    "typescript": "^5.9.3"
+    "joi": "^18.0.2",
+    "typescript": "^5.9.3",
+    "zod": "^4.1.13"
   },
   "devDependencies": {
     "@types/cors": "^2.8.19",

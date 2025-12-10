@@ -18,3 +18,8 @@ export interface GetStudentIdParamsReq extends Request {
         studentId: string
     }
 }
+export interface studentValidationInterface {
+    name: string,
+    age: number,
+    isActive: boolean
+}

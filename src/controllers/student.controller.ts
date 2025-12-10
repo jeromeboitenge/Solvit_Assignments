@@ -4,11 +4,13 @@ import { studentRouter } from "../routes/student";
 import { CreateStudentsRequest, GetStudentIdParamsReq } from "../types/student.interface";
 import { createUser, allStudent, findStudent, deletedStudentById } from "../services/student.service";
 import { ResponseService } from "../utils";
+import { createVaridationSchema } from "../schema/student/joiValidation"
 const responsee = new ResponseService()
 
 export const createStudent = (req: CreateStudentsRequest, res: Response) => {
     try {
         const { name, age, isActive } = req.body;
+        const { value, error } = createVaridationSchema.validate(req.body)
         if (!name || !age || isActive === undefined) {
             return res.status(400).json({
                 message: "Your missing field",
