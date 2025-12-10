@@ -4,20 +4,11 @@ import { studentRouter } from "../routes/student";
 import { CreateStudentsRequest, GetStudentIdParamsReq } from "../types/student.interface";
 import { createUser, allStudent, findStudent, deletedStudentById } from "../services/student.service";
 import { ResponseService } from "../utils";
-import { createVaridationSchema } from "../schema/student/joiValidation"
 const responsee = new ResponseService()
 
 export const createStudent = (req: CreateStudentsRequest, res: Response) => {
     try {
-        // const { name, age, isActive } = req.body;
-        const { value, error } = createVaridationSchema.validate(req.body)
-        if (error) {
-            return res.status(400).json({
-                success: false,
-                message: error.details[0].message
-            });
-        }
-        const { name, age, isActive } = value;
+        const { name, age, isActive } = req.body;
         const student = createUser({ name, age, isActive })
         responsee.response({
             res,

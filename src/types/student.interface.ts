@@ -11,7 +11,7 @@ export interface StudentInterface {
     deletedAt?: Date | null;
 }
 export interface CreateStudentsRequest extends Request {
-    body: Partial<StudentInterface>
+    body: studentValidationInterface
 }
 export interface GetStudentIdParamsReq extends Request {
     params: {
