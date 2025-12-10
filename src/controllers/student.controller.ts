@@ -9,7 +9,7 @@ const responsee = new ResponseService()
 export const createStudent = (req: CreateStudentsRequest, res: Response) => {
     try {
         const { name, age, isActive } = req.body;
-        if (!name || !age || !isActive) {
+        if (!name || !age || isActive === undefined) {
             return res.status(400).json({
                 message: "Your missing field",
             });
