@@ -1,8 +1,10 @@
 import { database, writeFile } from "../database";
 import { userInterface } from "../types/user.interface";
 
+
+const db = JSON.parse(database());
 export const createUser = (data: userInterface) => {
-    const db = JSON.parse(database());
+
     const newId = (db.users.length + 1).toString();
 
     const newUser = { id: newId, ...data };
@@ -14,17 +16,17 @@ export const createUser = (data: userInterface) => {
 };
 
 export const getAllUsers = () => {
-    const db = JSON.parse(database());
+
     return db.users;
 };
 
 export const getUserById = (id: string) => {
-    const db = JSON.parse(database());
+
     return db.users.find((u: any) => u.id === id);
 };
 
 export const updateUser = (id: string, data: Partial<userInterface>) => {
-    const db = JSON.parse(database());
+
     const index = db.users.findIndex((u: any) => u.id === id);
 
     if (index === -1) return null;
@@ -36,7 +38,7 @@ export const updateUser = (id: string, data: Partial<userInterface>) => {
 };
 
 export const deleteUser = (id: string) => {
-    const db = JSON.parse(database());
+
     const index = db.users.findIndex((u: any) => u.id === id);
 
     if (index === -1) return null;

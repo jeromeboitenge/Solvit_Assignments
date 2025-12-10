@@ -1,12 +1,14 @@
 
-import { db } from "../../database"
+
 import { database, writeFile } from "../database";
 import { StudentInterface } from "../types/student.interface";
 
+
+const db = JSON.parse(database())
 export const createUser = ({ name, age, isActive }: { name: string, age: number, isActive: boolean }) => {
-    const studentTable = JSON.parse(database())
-    const index = (studentTable?.students.length + 1).toString()
-    studentTable.students.push({
+
+    const index = (db?.students.length + 1).toString()
+    db.students.push({
         id: index,
         name,
         age,
@@ -14,19 +16,19 @@ export const createUser = ({ name, age, isActive }: { name: string, age: number,
         createdAt: new Date()
 
     })
-    writeFile(studentTable)
-    return studentTable.students[Number(index)]
+    writeFile(db)
+    return db.students[Number(index)]
 
 }
 export const allStudent = (): StudentInterface => {
-    const studentTable = JSON.parse(database())
-    const students = studentTable["students"] as StudentInterface
+
+    const students = db["students"] as StudentInterface
 
     return students;
 }
 export const findStudent = ({ studentId }: { studentId: string; }): StudentInterface | boolean => {
-    const studentTable = JSON.parse(database())
-    const students = studentTable["students"] as StudentInterface[];
+
+    const students = db["students"] as StudentInterface[];
     const studentIndex = students.findIndex((va) => va.id == studentId);
     if (studentIndex === -1) {
         return false;
@@ -35,13 +37,13 @@ export const findStudent = ({ studentId }: { studentId: string; }): StudentInter
 };
 
 export const deletedStudentById = (studentId: string) => {
-    const studentTable = JSON.parse(database())
-    const studentIndex = db.findIndex(ide => ide.id === studentId)
+    const students = db["students"] as StudentInterface[];
+    const studentIndex = students.findIndex(ide => ide.id === studentId)
     if (studentIndex === -1) {
         return null
 
     }
-    const deleted = studentTable.splice(studentIndex, 1);
+    const deleted = db.students.splice(studentIndex, 1);
     writeFile(db)
     return deleted[0]
 }

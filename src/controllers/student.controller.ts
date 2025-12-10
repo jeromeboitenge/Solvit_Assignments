@@ -55,10 +55,15 @@ export const getStudent = (req: GetStudentIdParamsReq, res: Response) => {
 export const deleteStudent = (req: Request, res: Response) => {
     const { studentId } = req.params
 
-    const deletedStudent = deletedStudentById(studentId)
+    const deleted = deletedStudentById(studentId)
+    if (!deleted) {
+        return res.status(404).json({
+            message: "User not found"
+        })
+    }
     res.status(200).json({
         message: "student successfuly deleted",
-        data: deletedStudent
+        data: deleted
     })
 }
 export const updateStudent = (req: Request, res: Response) => {
