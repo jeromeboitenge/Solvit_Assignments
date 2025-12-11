@@ -1,7 +1,8 @@
 export interface userInterface {
     "name": string,
     "email": string
-    "phoneNumber": string
+    "phoneNumber": string,
+    "age": number
     "gender": Gender
 }
 export enum Gender {
