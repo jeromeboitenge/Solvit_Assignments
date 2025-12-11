@@ -1,10 +1,11 @@
 
 import express, { Express, Request, Response } from "express";
 import cors from "cors";
-import { config as DotEven } from "dotenv";
-DotEven();
-import { config } from "./config";
+import { config as dotenv } from "dotenv";
+dotenv();
+import { config, databaseConnection } from "./config";
 import { mainRouter } from "./routes";
+
 
 const app: Express = express();
 app.use(cors());
@@ -19,5 +20,8 @@ app.use((req: Request, res: Response) => {
         message: "invalid path",
     });
 });
+databaseConnection().then(() => {
+    app.listen(config.port, () => console.log(`server is running  on port ${config.port}`));
+
+})
 export default app;
-app.listen(config.port, () => console.log(`serving on port ${config.port}`));

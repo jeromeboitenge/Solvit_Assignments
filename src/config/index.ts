@@ -6,3 +6,4 @@ export const config: ServerInterface = {
     port: Number(process.env.PORT || 5500),
     prefix: String(process.env.PREFIX || "/api/v1"),
 }
+export * from "./database"
