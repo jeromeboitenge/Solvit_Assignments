@@ -1,0 +1,85 @@
+import { db } from "../../database";
+import { Request, Response } from "express";
+import { studentRouter } from "../routes/student";
+import { CreateStudentsRequest, GetStudentIdParamsReq } from "../types/student.interface";
+import { createUser, findAllStudent, findStudent, deletedStudentById } from "../services/student.service";
+import { ResponseService } from "../utils";
+const responsee = new ResponseService()
+
+export const createStudent = (req: CreateStudentsRequest, res: Response) => {
+    try {
+        const { name, age, isActive } = req.body;
+        const student = createUser({ name, age, isActive })
+        responsee.response({
+            res,
+            data: student,
+            success: true,
+            statusCode: 201,
+            message: "Student Created Successfully",
+        });
+    } catch (error) {
+        const { message, stack } = error as Error;
+        responsee.response({
+            res,
+            statusCode: 500,
+            message,
+            error: stack,
+        });
+        res.status(500).json({
+            message,
+            stack,
+        });
+    }
+};
+
+
+export const getAllStudents = (req: Request, res: Response) => {
+    const allStudents = findAllStudent()
+
+
+    res.status(200).json({
+        data: allStudents,
+        message: "fetched well",
+    });
+};
+export const getStudent = (req: GetStudentIdParamsReq, res: Response) => {
+    const { studentId } = req.params;
+
+
+
+    const student = findStudent({ studentId });
+    if (!student) {
+        return res.status(404).json({ message: "User not found" })
+    }
+    res.status(200).json({
+        message: "student Found",
+        data: student,
+    });
+};
+export const deleteStudent = (req: Request, res: Response) => {
+    const { studentId } = req.params
+
+    const deleted = deletedStudentById(studentId)
+    if (!deleted) {
+        return res.status(404).json({
+            message: "User not found"
+        })
+    }
+    res.status(200).json({
+        message: "student successfuly deleted",
+        data: deleted
+    })
+}
+export const updateStudent = (req: Request, res: Response) => {
+    const { id } = req.params
+    const studentIndex = db.findIndex(ide => ide.id === id)
+    if (studentIndex === -1) {
+        res.status(404).json({
+            message: "student not found,check well your id"
+        })
+
+    }
+
+}
+
+
