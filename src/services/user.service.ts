@@ -1,50 +1,50 @@
-import { database, writeFile } from "../database";
-import { userInterface } from "../types/user.interface";
+// import { database, writeFile } from "../database";
+// import { userInterface } from "../types/user.interface";
 
 
-const db = JSON.parse(database());
-export const createUser = (data: userInterface) => {
+// const db = JSON.parse(database());
+// export const createUser = (data: userInterface) => {
 
-    const newId = (db.users.length + 1).toString();
+//     const newId = (db.users.length + 1).toString();
 
-    const newUser = { id: newId, ...data };
+//     const newUser = { id: newId, ...data };
 
-    db.users.push(newUser);
-    writeFile(db);
+//     db.users.push(newUser);
+//     writeFile(db);
 
-    return newUser;
-};
+//     return newUser;
+// };
 
-export const getAllUsers = () => {
+// export const getAllUsers = () => {
 
-    return db.users;
-};
+//     return db.users;
+// };
 
-export const getUserById = (id: string) => {
+// export const getUserById = (id: string) => {
 
-    return db.users.find((u: any) => u.id === id);
-};
+//     return db.users.find((u: any) => u.id === id);
+// };
 
-export const updateUser = (id: string, data: Partial<userInterface>) => {
+// export const updateUser = (id: string, data: Partial<userInterface>) => {
 
-    const index = db.users.findIndex((u: any) => u.id === id);
+//     const index = db.users.findIndex((u: any) => u.id === id);
 
-    if (index === -1) return null;
+//     if (index === -1) return null;
 
-    db.users[index] = { ...db.users[index], ...data };
-    writeFile(db);
+//     db.users[index] = { ...db.users[index], ...data };
+//     writeFile(db);
 
-    return db.users[index];
-};
+//     return db.users[index];
+// };
 
-export const deleteUser = (id: string) => {
+// export const deleteUser = (id: string) => {
 
-    const index = db.users.findIndex((u: any) => u.id === id);
+//     const index = db.users.findIndex((u: any) => u.id === id);
 
-    if (index === -1) return null;
+//     if (index === -1) return null;
 
-    const deleted = db.users.splice(index, 1);
-    writeFile(db);
+//     const deleted = db.users.splice(index, 1);
+//     writeFile(db);
 
-    return deleted[0];
-};
+//     return deleted[0];
+// };
