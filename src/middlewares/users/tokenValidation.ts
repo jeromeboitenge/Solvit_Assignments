@@ -6,7 +6,7 @@ import { AuthRequest, JwtPayload } from "../../types";
 const responseService = new ResponseService()
 
 export class AuthMiddleware {
-    tokenvalidation(req: AuthRequest, res: Response, next: NextFunction): Response {
+    tokenvalidation(req: AuthRequest, res: Response, next: NextFunction) {
 
         const authHeader: string | undefined = req.headers['authorization'];
         const token: string | undefined = authHeader?.split(' ')[1];
