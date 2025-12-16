@@ -12,7 +12,7 @@ export interface generateTokenPayload {
 }
 export const comparePassword = async (
     password: string, db_password: string): Promise<boolean> => {
-    return await bcrypt.compare(password, db_password)
+    return bcrypt.compare(password, db_password)
 }
 
 export const generateToken = async ({ id, role }: generateTokenPayload) => {

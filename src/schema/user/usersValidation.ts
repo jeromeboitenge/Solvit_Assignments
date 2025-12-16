@@ -1,5 +1,5 @@
 import joi from "joi";
-import { UserInterface } from "../../types/";
+import { UserInterface, loginInterface } from "../../types/";
 import { email } from "zod";
 
 export const UserSchemaValidation = joi.object<UserInterface>({
@@ -16,7 +16,7 @@ export const UserSchemaValidation = joi.object<UserInterface>({
     isActive: joi.boolean().default(true).presence("optional"),
 });
 
-// export const LoginValidation = joi.object<LoginInterface>({
-//     email: joi.string().email().presence("required"),
-//     password: joi.string().required(),
-// });
+export const LoginValidation = joi.object<loginInterface>({
+    email: joi.string().email().presence("required"),
+    password: joi.string().required(),
+});

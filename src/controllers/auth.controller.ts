@@ -8,14 +8,14 @@ import { comparePassword } from "../utils/security";
 const responseService = new ResponseService()
 const authService = new AuthService()
 const userService = new UsersServices
-export class AuthContoller {
+export class AuthController {
     async login(req: Request, res: Response) {
         try {
             const body = req.body as loginInterface
-            const exist = userService.userExists(body.email)
+            const exist = await userService.userExists(body.email)
 
             if (!exist) {
-                responseService.response({
+                return responseService.response({
                     res,
                     statusCode: 404,
                     message: "user does not exist",
@@ -23,16 +23,16 @@ export class AuthContoller {
                 })
 
             }
-            const user = await userService.getUser(body.email)
-            const passwordMatch = comparePassword(body.password, user?.password as string)
+            const user = await userService.getUser(req.body)
+            const passwordMatch = await comparePassword(body.password, user?.password as string)
             if (!passwordMatch) {
-                responseService.response({
+                return responseService.response({
                     res,
                     statusCode: 400,
                     message: "Incorrect Email or Password"
                 })
             }
-            const token = authService.loginService({
+            const token = await authService.loginService({
                 id: user?.id.toString() as string,
                 role: user?.role ?? ("User" as string)
             })

@@ -27,10 +27,12 @@ export class UsersServices {
         const allUsers = await UserModal.find().select("-password").exec()
         return allUsers
     }
-    getUser = async (email: string) => {
-        const user = await UserModal.findOne({ email: email }).select("-password")
-        return user
+    async getUser({ email }: { email: string }) {
+        return await UserModal.findOne({
+            email,
+        });
     }
+
     updateUser = async (email: string, updateData: Partial<UserInterface>) => {
         const updatedUser = await UserModal.findByIdAndUpdate(
             email,
