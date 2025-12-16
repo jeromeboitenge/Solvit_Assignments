@@ -17,7 +17,7 @@ export const UserSchema = new Schema({
         enum: ["user", "student", "admin"]
 
     },
-    passord: {
+    password: {
         type: String,
     },
     isActive: {

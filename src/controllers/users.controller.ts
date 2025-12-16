@@ -8,7 +8,7 @@ const usersServices = new UsersServices();
 const responseServices = new ResponseService();
 
 export class UserController {
-    // Arrow function preserves 'this' context
+
     public createUser = async (req: CreateUsersInterface, res: Response): Promise<void> => {
         try {
             const { email, name, gender, isActive, password } = req.body;
