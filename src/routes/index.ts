@@ -1,12 +1,14 @@
 import express, { Router } from "express";
 import { studentRouter } from "./student";
 import { attendanceRouter } from "./attendance.router";
-import { userRouter } from "./userRoutes";
+import { userRoute } from "./users.Routes";
+
 
 const routes: Router[] = [
     studentRouter,
     attendanceRouter,
-    userRouter
+    userRoute
+
 ];
 
 const mainRouter = express();

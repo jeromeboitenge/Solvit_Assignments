@@ -1,2 +1,1 @@
-import * as StudentInterface from "./student.interface"
-import * as attendnceInterface from './attendenceInterface'
+export * from "./usersIntercface"
