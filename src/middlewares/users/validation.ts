@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from "express";
 import { ObjectSchema } from "joi";
 import { ResponseService } from "../../utils";
 
-const responseServices = new ResponseService
+const responseServices = new ResponseService;
 
 export enum Type {
     BODY = "body",
@@ -25,7 +25,7 @@ export const validationMiddleware = <T>({ schema, type }: joiRequestType<T>) => 
                 res,
                 statusCode: 400,
                 data: validates.error.details,
-                success: false
+                success: false,
 
             })
 
